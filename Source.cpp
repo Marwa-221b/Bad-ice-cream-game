@@ -28,7 +28,7 @@ struct enemies {
 struct fruits {
 	Texture txfruit;
 	Sprite fruit;
-}banana1[15],banana2[15], watermelon1[10], watermelon2[10],grape1[10],grape2[10],straberry[15],strabery1[15],coco[20],dragon[20];
+}banana1[15],banana2[15], watermelon1[10], watermelon2[10],grape1[10],grape2[10],straberry[15],strabery1[15],coco[20],dragon[20],f[16];
 
 struct pos
 {
@@ -40,7 +40,7 @@ struct MyStruct // neckname
 	SoundBuffer soundbuffer;
 	Sound sound;
 
-}fruit, winso, gameover, jumpSound, dieSound,pointSound;
+}fruit, winso, gameover, jumpSound, dieSound,pointSound, breakbuffer;
 bool pass_levels[20] = { 1,1 };
 int pagenum = 100;
 int cnt = 0;
@@ -349,9 +349,7 @@ void drawblocklevel3(float scale, RenderWindow& window) {
 	for (int i = 0; i < 8 * 4; i++) {
 		window.draw(block2[i]);
 	}
-	for (int i = 0; i < 4; i++) {
-		window.draw(tree[i]);
-	}
+	
 }
 void icetowercolision(player& player) {
 
@@ -1296,6 +1294,19 @@ void middelblockcolision(player &playeer) {
 	}
 
 }
+void blockbreak(RenderWindow& window, player& playr) {
+	breakbuffer.soundbuffer.loadFromFile("Audios/music.mpeg");
+	breakbuffer.sound.setBuffer(breakbuffer.soundbuffer);
+	for (int i = 0; i < 32; i++) {
+		if (Keyboard::isKeyPressed(Keyboard::Space) && playr.player.getGlobalBounds()
+			.intersects(block2[i].getGlobalBounds()))
+		{
+			block2[i].setScale(0, 0);
+			breakbuffer.sound.play();
+
+		}
+	}
+}
 void level1(RenderWindow& window) {
 	
 	window.clear();
@@ -1622,10 +1633,12 @@ void level3(RenderWindow& window) {
 
 	//drawblocklevel3(3.3, 500, 2, window);
 	drawboarder(3, 13, block3, 750, window);
-	drawblocklevel3(3.3, window);
+
+
 
 	if (poslevel2) {
 		drawFruits(coco, 20, 595, 84, 81, 579, 50, 35);
+
 		player1.player.setPosition(310, 260);
 		player1.text.setPosition(10, 10);
 		player1.score = 0;
@@ -1641,9 +1654,9 @@ void level3(RenderWindow& window) {
 	if (cnt == 4) {
 		if (player1.score == 0) {
 			bar.setTextureRect(IntRect(0, 0, 150, 150));
-			drawFruits(coco, 20, 595, 84, 35, 650, 50, 35);
-
-
+			//drawFruits(coco, 20, 595, 84, 35, 650, 50, 35);
+				drawFruits(coco, 16, 433, 78, 66, 488, 213, 232);
+			drawblocklevel3(3.3, window);
 		}
 		if (player1.score == 20) {
 			drawFruits(dragon, 20, 595, 84, 35, 650, 50, 35);
@@ -1651,15 +1664,15 @@ void level3(RenderWindow& window) {
 		}
 
 		chooseoneflav();
+
 		playermove1(player1, window, 0.65, 750, 0, 0, 750);
 		player1.player.move(player1.velocity);
 		window.draw(player1.player);
 		window.draw(player1.text);
-		winmenue(window, 40, pass_level2);
-		fruitcolision(coco, player1,20);
+		winmenue(window, 40, pass_levels[2]);
+		fruitcolision(coco, player1, 20);
 		fruitcolision(dragon, player1, 20);
-
-
+		blockbreak(window, player1);
 
 
 	}
@@ -1687,7 +1700,7 @@ void level3(RenderWindow& window) {
 		player2.player.move(player2.velocity);
 		window.draw(player2.player);
 		window.draw(player2.text);
-		winmenue(window, 40, pass_level2);
+		winmenue(window, 40, pass_levels[2]);
 		fruitcolision(coco, player1, 20);
 		fruitcolision(dragon, player1, 20);
 		fruitcolision(coco, player2, 20);
@@ -1697,7 +1710,7 @@ void level3(RenderWindow& window) {
 	if (player1.score >= 20 || (player1.score + player2.score) >= 20) {
 		bar.setTextureRect(IntRect(150, 0, 150, 150));
 		fruit1.loadFromFile("photos/dragonfruit.png");
-		for (int i = 0; i <20; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			dragon[i].fruit.setTexture(fruit1);
 		}
@@ -1714,6 +1727,15 @@ void level3(RenderWindow& window) {
 	for (int i = 0; i < 20; i++)
 	{
 		window.draw(coco[i].fruit);
+	}
+	for (int i = 0; i < 8 * 4; i++) {
+		//if(!breakblocks[i])
+		window.draw(block2[i]);
+	}
+	
+
+	for (int i = 0; i < 4; i++) {
+		window.draw(tree[i]);
 	}
 
 	window.draw(bar);
@@ -2753,7 +2775,7 @@ int main()
 		if (cnt==4&&oneflav!="null")
 			{
 			if (level == 11) {
-				level1(window);
+				level3(window);
 				
 			}
 			else if(level == 22){
