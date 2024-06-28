@@ -15,20 +15,20 @@ struct player {
 	int touch = 0;
 	bool win = true;
 
-}player1 ,player2;
- 
+}player1, player2;
+
 struct enemies {
 	Texture txenemy;
 	Sprite enemy;
 
 
-}greenenemy, cowenemy1,cowenemy2;
+}greenenemy, cowenemy1, cowenemy2;
 
 
 struct fruits {
 	Texture txfruit;
 	Sprite fruit;
-}banana1[15],banana2[15], watermelon1[10], watermelon2[10],grape1[10],grape2[10],straberry[15],strabery1[15],coco[20],dragon[20],f[16];
+}banana1[15], banana2[15], watermelon1[10], watermelon2[10], grape1[10], grape2[10], straberry[15], strabery1[15], coco[20], dragon[20], f[16], coco2[16];
 
 struct pos
 {
@@ -40,7 +40,7 @@ struct MyStruct // neckname
 	SoundBuffer soundbuffer;
 	Sound sound;
 
-}fruit, winso, gameover, jumpSound, dieSound,pointSound, breakbuffer;
+}fruit, winso, gameover, jumpSound, dieSound, pointSound, breakbuffer;
 bool pass_levels[20] = { 1,1 };
 int pagenum = 100;
 int cnt = 0;
@@ -49,7 +49,7 @@ float deltatime = 0;
 
 float speed = 100.0f;
 float timer = 0, delay = 0.15f;
-int i = 0,e=0;
+int i = 0, e = 0;
 const int scale_b3 = 33;//lenth of block
 const int width_of_block = 118;
 const int scale_b4 = 59;//the horizontal distanse between the middle and border fruit
@@ -57,8 +57,8 @@ int scale_b5 = 297;//the virtical distance between center fruit
 bool pass_level1 = false;
 bool pass_level2 = false;
 
-string oneflav ="null";
-string twoflav[2] = { "null","null"};
+string oneflav = "null";
+string twoflav[2] = { "null","null" };
 Music music;
 Texture txblock2;
 Sprite blockface1[7 * 2 + 3 * 2 + 2 * 2];
@@ -87,19 +87,19 @@ Sprite bar;
 bool poslevel1 = true;
 bool poslevel2 = true;
 int level = 0;
-bool  takenall= false;
+bool  takenall = false;
 //bool win = true;
 const int scale1_fruit = 129;//the virtical distance between border fruits
 const int scale2_fruit = 119;//the virtical distance between middle fruits
 const int scale = 59;//the horizontal distance between the top right fruits
 int xx = 599;//first fruit
 int y = 140;//first fruit
-void setthings(Sprite& s, Texture &tx,int posx,int posy) {
+void setthings(Sprite& s, Texture& tx, int posx, int posy) {
 	s.setTexture(tx);
 	s.setPosition(posx, posy);
 }
-void setplayer(player &p,float scale) {
-	
+void setplayer(player& p, float scale) {
+
 	p.player.setTextureRect(IntRect(0, 0, 51, 79));
 	p.player.setScale(scale, scale);
 	p.player.setOrigin(p.player.getTextureRect().width / 2, p.player.getTextureRect().height / 2);
@@ -108,11 +108,11 @@ void setplayer(player &p,float scale) {
 	p.text.setString("Score  :  " + to_string(p.score));
 	p.text.setFillColor(Color::Black);
 	p.text.setCharacterSize(50);
-	
+
 }
-void setenemy(enemies &enm,int scale,Texture &tx,int posx,int posy ,int in1,int in2,int in3,int in4){
+void setenemy(enemies& enm, int scale, Texture& tx, int posx, int posy, int in1, int in2, int in3, int in4) {
 	enm.enemy.setTexture(tx);
-	enm.enemy.setScale(scale,scale);
+	enm.enemy.setScale(scale, scale);
 	enm.enemy.setPosition(posx, posy);
 	enm.enemy.setTextureRect(IntRect(in1, in2, in3, in4));
 
@@ -349,7 +349,7 @@ void drawblocklevel3(float scale, RenderWindow& window) {
 	for (int i = 0; i < 8 * 4; i++) {
 		window.draw(block2[i]);
 	}
-	
+
 }
 void icetowercolision(player& player) {
 
@@ -378,7 +378,7 @@ void icetowercolision(player& player) {
 	}
 
 }
-void innerblockcolision(player &playeer) {
+void innerblockcolision(player& playeer) {
 	// left 
 	for (int i = 0; i < 4; i++) {
 		// left lefe
@@ -515,7 +515,7 @@ void draw_fruits(int scale1, fruits fruitt[15], int scale2, int y, int x)
 	fruit1.loadFromFile("photos/banana.png");
 	for (int i = 0; i < 15; i++)
 	{
-		fruitt[i].fruit.setScale(1,1);
+		fruitt[i].fruit.setScale(1, 1);
 		//fruitt[i].fruit.setTexture(fruit1);
 
 		if (i >= 0 && i < 4)
@@ -541,7 +541,7 @@ void draw_fruits(int scale1, fruits fruitt[15], int scale2, int y, int x)
 		}
 	}
 }
-void draw_fruits(fruits fruit[10], int x1, int x2, int x3, int x4, int y,int scale1)
+void draw_fruits(fruits fruit[10], int x1, int x2, int x3, int x4, int y, int scale1)
 {
 	Texture fruit1;
 	fruit1.loadFromFile("photos/fruit1.png");
@@ -574,45 +574,45 @@ void draw_fruits(fruits fruit[10], int x1, int x2, int x3, int x4, int y,int sca
 	}
 
 }
-void drawFruits(fruits fru[],int n,int x1,int x2,int y1,int y2,int scale1,int scale2) {
-	
+void drawFruits(fruits fru[], int n, int x1, int x2, int y1, int y2, int scale1, int scale2) {
+
 	for (int i = 0; i < n; i++) {
 		fru[i].fruit.scale(1, 1);
-		
+
 		if (i >= 0 && i < 2) {
-			fru[i].fruit.setPosition(x1 , y1 + (i * scale2));
+			fru[i].fruit.setPosition(x1, y1 + (i * scale2));
 
 		}
-		else if (i> 1&&i<4) {
-			fru[i].fruit.setPosition(x1 +  scale1, y1 +(i%2)*  scale2);
+		else if (i > 1 && i < 4) {
+			fru[i].fruit.setPosition(x1 + scale1, y1 + (i % 2) * scale2);
 
 		}
 		else if (i > 3 && i < 6) {
-			fru[i].fruit.setPosition(x2 , y1 +(i%4)* scale2);
+			fru[i].fruit.setPosition(x2, y1 + (i % 4) * scale2);
 		}
 		else if (i > 5 && i < 8) {
-			fru[i].fruit.setPosition(x2 + scale1, y1 +(i%6) *scale2);
+			fru[i].fruit.setPosition(x2 + scale1, y1 + (i % 6) * scale2);
 		}
 		else if (i > 7 && i < 10) {
-			fru[i].fruit.setPosition(x2 , y2 +(i%8) *scale2);
+			fru[i].fruit.setPosition(x2, y2 + (i % 8) * scale2);
 
 		}
 		else if (i > 9 && i < 12) {
-			fru[i].fruit.setPosition(x2+scale1, y2 + (i % 10) * scale2);
+			fru[i].fruit.setPosition(x2 + scale1, y2 + (i % 10) * scale2);
 		}
 		else if (i > 11 && i < 14) {
 			fru[i].fruit.setPosition(183, 200 + (i % 12) * 347);
 		}
 		else if (i > 13 && i < 16) {
-			fru[i].fruit.setPosition(538, 200 + (i % 14)  *347);
+			fru[i].fruit.setPosition(538, 200 + (i % 14) * 347);
 
 		}
 		else if (i > 15 && i < 18) {
-			fru[i].fruit.setPosition(x1, y2 + (i % 16) * scale2 );
+			fru[i].fruit.setPosition(x1, y2 + (i % 16) * scale2);
 
 		}
 		else if (i > 17 && i < 20) {
-			fru[i].fruit.setPosition(x1+scale1, y2 + (i % 18) * scale2);
+			fru[i].fruit.setPosition(x1 + scale1, y2 + (i % 18) * scale2);
 
 		}
 	}
@@ -622,8 +622,8 @@ void score(player& playerr) {
 	playerr.score++;
 	playerr.text.setString("Score  :  " + to_string(playerr.score));
 }
-void fruitcolision(fruits arr[], player& p,int lim) {
-	
+void fruitcolision(fruits arr[], player& p, int lim) {
+
 	for (int i = 0; i < lim; i++) {
 
 		if (p.player.getGlobalBounds().intersects(arr[i].fruit.getGlobalBounds()))
@@ -635,13 +635,13 @@ void fruitcolision(fruits arr[], player& p,int lim) {
 	}
 
 }
-void playermove1(player &p, RenderWindow& window, float scale,int limright,int limleft,int limtop,int limbot) {
+void playermove1(player& p, RenderWindow& window, float scale, int limright, int limleft, int limtop, int limbot) {
 	if (p.win) {
 		if (Keyboard::isKeyPressed(Keyboard::Right) && p.player.getPosition().x < limright) {
 			p.velocity.x = speed * deltatime;
 			p.player.setScale(scale, scale);
 			if (timer < 0) {
-				
+
 				i++;
 				i = i % 8;
 				p.player.setTextureRect(IntRect((i * 52), 158, 50, 79));
@@ -658,7 +658,7 @@ void playermove1(player &p, RenderWindow& window, float scale,int limright,int l
 			p.velocity.x = -speed * deltatime;
 			p.player.setScale(-scale, scale);
 			if (timer < 0) {
-				
+
 				i++;
 				i = i % 8;
 				p.player.setTextureRect(IntRect((i * 52), 158, 50, 79));
@@ -673,7 +673,7 @@ void playermove1(player &p, RenderWindow& window, float scale,int limright,int l
 			p.velocity.y = -speed * deltatime;
 			p.player.setScale(-scale, scale);
 			if (timer < 0) {
-				
+
 				i++;
 				i = i % 8;
 				p.player.setTextureRect(IntRect((i * 54), 79, 54, 79));
@@ -688,7 +688,7 @@ void playermove1(player &p, RenderWindow& window, float scale,int limright,int l
 			p.velocity.y = speed * deltatime;
 			p.player.setScale(-scale, scale);
 			if (timer < 0) {
-				
+
 				i++;
 				i = i % 8;
 				p.player.setTextureRect(IntRect((i * 54), 0, 54, 70));
@@ -707,7 +707,7 @@ void playermove2(player& p, RenderWindow& window, float scale, int limright, int
 			p.velocity.x = speed * deltatime;
 			p.player.setScale(scale, scale);
 			if (timer < 0) {
-				
+
 				i++;
 				i = i % 8;
 				p.player.setTextureRect(IntRect((i * 52), 158, 50, 79));
@@ -724,7 +724,7 @@ void playermove2(player& p, RenderWindow& window, float scale, int limright, int
 			p.velocity.x = -speed * deltatime;
 			p.player.setScale(-scale, scale);
 			if (timer < 0) {
-				
+
 				i++;
 				i = i % 8;
 				p.player.setTextureRect(IntRect((i * 52), 158, 50, 79));
@@ -739,7 +739,7 @@ void playermove2(player& p, RenderWindow& window, float scale, int limright, int
 			p.velocity.y = -speed * deltatime;
 			p.player.setScale(-scale, scale);
 			if (timer < 0) {
-			
+
 				i++;
 				i = i % 8;
 				p.player.setTextureRect(IntRect((i * 54), 79, 54, 79));
@@ -754,7 +754,7 @@ void playermove2(player& p, RenderWindow& window, float scale, int limright, int
 			p.velocity.y = speed * deltatime;
 			p.player.setScale(-scale, scale);
 			if (timer < 0) {
-				
+
 				i++;
 				i = i % 8;
 				p.player.setTextureRect(IntRect((i * 54), 0, 54, 70));
@@ -883,7 +883,7 @@ void enemyanimationlevel2(enemies& enemy) {
 
 	}
 }
-void blockcoliision(player &playerr) {
+void blockcoliision(player& playerr) {
 
 	RectangleShape recblock(Vector2f(50, 460));
 	RectangleShape recblockright(Vector2f(50, 460));
@@ -963,7 +963,7 @@ void blockcoliision(player &playerr) {
 		&& playerr.player.getPosition().y> 577 && playerr.player.getPosition().y < 602)
 	{
 		playerr.player.setPosition(playerr.player.getPosition().x, recblockbottom2.getPosition().y + 100);
-		
+
 
 	}
 
@@ -1045,7 +1045,7 @@ void blockcoliision(player &playerr) {
 	}
 
 }
-void winmenue(RenderWindow& window,int maxn, bool& pass_level) {
+void winmenue(RenderWindow& window, int maxn, bool& pass_level) {
 	//win sound 
 	winso.soundbuffer.loadFromFile("Audios/win.mp3");
 	winso.sound.setBuffer(winso.soundbuffer);
@@ -1068,19 +1068,19 @@ void winmenue(RenderWindow& window,int maxn, bool& pass_level) {
 				winnermenu.setPosition(150, 280);
 				window.draw(winnermenu);
 			}
-			else if(player1.score ==player2.score&& player1.score!=0&& player2.score!=0) {
+			else if (player1.score == player2.score && player1.score != 0 && player2.score != 0) {
 				winner_tx.loadFromFile("photos/tie.png");
 				winnermenu.setTexture(winner_tx);
 				winnermenu.setPosition(150, 280);
 				window.draw(winnermenu);
 			}
 
-			
+
 
 		}
 	}
-	else if(cnt==4) {
-		
+	else if (cnt == 4) {
+
 		if (player1.score == maxn) {
 			takenall = true;
 			pass_level = true;
@@ -1089,10 +1089,10 @@ void winmenue(RenderWindow& window,int maxn, bool& pass_level) {
 			winnermenu.setTexture(winner_tx);
 			winnermenu.setPosition(150, 280);
 			window.draw(winnermenu);
-			
+
 
 		}
-		
+
 	}
 	// winner menue
 	Vector2i mosPos = Mouse::getPosition(window);
@@ -1106,8 +1106,8 @@ void winmenue(RenderWindow& window,int maxn, bool& pass_level) {
 
 		}
 	}
-	
-	
+
+
 }
 void chooseflav_one(RenderWindow& window) {
 	////////////////////choose flavour  menu for oneplayer///////////////////////////
@@ -1157,7 +1157,7 @@ void chooseflav_two(RenderWindow& window) {
 
 	if (Mouse::isButtonPressed(Mouse::Left))
 	{
-		if (mousepos.x > 300 && mousepos.x < 400 && mousepos.y>500 && mousepos.y <550)
+		if (mousepos.x > 300 && mousepos.x < 400 && mousepos.y>500 && mousepos.y < 550)
 		{
 			cnt = 3;
 			twoflav[0] = "null";
@@ -1179,38 +1179,38 @@ void chooseflav_two(RenderWindow& window) {
 		if (mousepos.x > 280 && mousepos.x < 330 && mousepos.y>150 && mousepos.y < 280)
 
 		{
-				twoflav[0] = "pink";
-				cout << "mm";
+			twoflav[0] = "pink";
+			cout << "mm";
 		}
-			
-		if (mousepos.x > 400 && mousepos.x < 440 && mousepos.y>200 && mousepos.y < 260){
-				twoflav[1] = "chocolate";
-				cout << "kk";
+
+		if (mousepos.x > 400 && mousepos.x < 440 && mousepos.y>200 && mousepos.y < 260) {
+			twoflav[1] = "chocolate";
+			cout << "kk";
 		}
 		if (mousepos.x > 445 && mousepos.x < 500 && mousepos.y>200 && mousepos.y < 260)
 
 		{
-				twoflav[1] = "vanilla";
-				cout << "kk";
+			twoflav[1] = "vanilla";
+			cout << "kk";
 		}
 
 		if (mousepos.x > 530 && mousepos.x < 575 && mousepos.y>200 && mousepos.y < 260)
 
 		{
-				twoflav[1] = "rose";
-				cout << "kk";
+			twoflav[1] = "rose";
+			cout << "kk";
 		}
-		
+
 	}
 }
 void chooseoneflav() {
 	if (oneflav == "brown") {
 		player1.txplayer.loadFromFile("photos/playersprite2.png");
 	}
-	else if (oneflav == "pink" ) {
+	else if (oneflav == "pink") {
 		player1.txplayer.loadFromFile("photos/playersprite3.png");
 	}
-	else if (oneflav == "white" ) {
+	else if (oneflav == "white") {
 		player1.txplayer.loadFromFile("photos/playersprite.png");
 
 	}
@@ -1238,7 +1238,7 @@ void choosetwoflav() {
 	}
 }
 void enemycolision(RenderWindow& window, player& playerr, enemies enemy) {
-	if (playerr.player.getGlobalBounds().intersects(enemy.enemy.getGlobalBounds())&&!takenall) {
+	if (playerr.player.getGlobalBounds().intersects(enemy.enemy.getGlobalBounds()) && !takenall) {
 		playerr.win = false;
 		playerr.touch++;
 		gameover.sound.play();// the play part in the while loop
@@ -1248,11 +1248,11 @@ void enemycolision(RenderWindow& window, player& playerr, enemies enemy) {
 		winnermenu.setTexture(winner_tx);
 		winnermenu.setPosition(150, 280);
 
-		
+
 	}
 }
-void middelblockcolision(player &playeer) {
-	
+void middelblockcolision(player& playeer) {
+
 	txmiddleBlock.loadFromFile("photos/middleBlock.png");
 	middleBlock.setTexture(txmiddleBlock);
 	middleBlock.setPosition(170, 170);
@@ -1308,7 +1308,7 @@ void blockbreak(RenderWindow& window, player& playr) {
 	}
 }
 void level1(RenderWindow& window) {
-	
+
 	window.clear();
 	window.draw(mainbackground2);
 	txblock1.loadFromFile("photos/block1.png");
@@ -1322,17 +1322,17 @@ void level1(RenderWindow& window) {
 	}
 	enemyanimation(greenenemy);
 	drawboarder(3, 18, block1, 750, window);
-	
-	
+
+
 	window.draw(icecastle);
-	
+
 	if (poslevel1) {
-		draw_fruits(watermelon1, 617, 563, 495, 452, 87,1);//right
-		draw_fruits(watermelon2, 123, 179, 233, 294, 87,1);//left
+		draw_fruits(watermelon1, 617, 563, 495, 452, 87, 1);//right
+		draw_fruits(watermelon2, 123, 179, 233, 294, 87, 1);//left
 		player1.score = 0;
 		player1.text.setPosition(10, 10);
 		player1.player.setPosition(80, 80);
-		setplayer(player1,0.75);
+		setplayer(player1, 0.75);
 		///////player2///////////////
 		player2.score = 0;
 		player2.text.setPosition(450, 10);
@@ -1347,23 +1347,23 @@ void level1(RenderWindow& window) {
 
 			draw_fruits(watermelon1, 617, 563, 495, 452, 87, 1);//right
 			draw_fruits(watermelon2, 123, 179, 233, 294, 87, 1);//left
-			
-			bar.setTextureRect(IntRect(0,0,150,150));
-			
+
+			bar.setTextureRect(IntRect(0, 0, 150, 150));
+
 			innerblock(3);
 
 		}
-		
+
 		if (player1.score == 20) {
-			
-			draw_fruits(grape1, 617, 563, 495, 452, 87,1.5);//right
-			draw_fruits(grape2, 123, 179, 233, 294, 87,1.5);//left
+
+			draw_fruits(grape1, 617, 563, 495, 452, 87, 1.5);//right
+			draw_fruits(grape2, 123, 179, 233, 294, 87, 1.5);//left
 			bar.setTextureRect(IntRect(150, 0, 150, 150));
 
 		}
-		
+
 		chooseoneflav();
-		playermove1(player1, window, 0.75,670,80,80,670);
+		playermove1(player1, window, 0.75, 670, 80, 80, 670);
 		fruitcolision(watermelon1, player1, 10);
 		fruitcolision(watermelon2, player1, 10);
 		fruitcolision(grape1, player1, 10);
@@ -1373,27 +1373,26 @@ void level1(RenderWindow& window) {
 		player1.player.move(player1.velocity);
 		window.draw(player1.player);
 		window.draw(player1.text);
-		
 		winmenue(window, 40, pass_level1);
-		enemycolision(window, player1,  greenenemy);
-		
+		enemycolision(window, player1, greenenemy);
+
 	}
 	else {
-		
-		if (player1.score == 0&& player2.score == 0) {
-			draw_fruits(watermelon1, 617, 563, 495, 452, 87,1);//right
-			draw_fruits(watermelon2, 123, 179, 233, 294, 87,1);//left
+
+		if (player1.score == 0 && player2.score == 0) {
+			draw_fruits(watermelon1, 617, 563, 495, 452, 87, 1);//right
+			draw_fruits(watermelon2, 123, 179, 233, 294, 87, 1);//left
 			bar.setTextureRect(IntRect(0, 0, 150, 150));
 			innerblock(3);
 		}
-		if ((player1.score + player2.score) == 20 ) {
-			
+		if ((player1.score + player2.score) == 20) {
+
 			draw_fruits(grape1, 617, 563, 495, 452, 87, 1.5);//right
 			draw_fruits(grape2, 123, 179, 233, 294, 87, 1.5);//left
 			bar.setTextureRect(IntRect(150, 0, 150, 150));
 
 		}
-		
+
 		choosetwoflav();
 		playermove1(player1, window, 0.75, 670, 80, 80, 670);
 		fruitcolision(watermelon1, player1, 10);
@@ -1419,10 +1418,10 @@ void level1(RenderWindow& window) {
 		enemycolision(window, player2, greenenemy);
 		winmenue(window, 40, pass_level1);
 	}
-	
-	
-	if (player1.score >= 20||(player1.score+player2.score)>=20) {
-		
+
+
+	if (player1.score >= 20 || (player1.score + player2.score) >= 20) {
+
 		fruit1.loadFromFile("photos/fruit2.png");
 		for (int i = 0; i < 10; i++)
 		{
@@ -1450,19 +1449,19 @@ void level1(RenderWindow& window) {
 	window.draw(bar);
 
 	window.draw(greenenemy.enemy);
-	if (!player1.win&&player1.touch>0&&cnt==4) {
-		
+	if (!player1.win && player1.touch > 0 && cnt == 4) {
+
 		window.draw(winnermenu);
 	}
-	if (!player1.win&&!player2.win && player1.touch > 0 && player2.touch > 0) {
-		
+	if (!player1.win && !player2.win && player1.touch > 0 && player2.touch > 0) {
+
 		window.draw(winnermenu);
 	}
-	
-	
+
+
 }
 void level2(RenderWindow& window) {
-	
+
 	window.clear();
 	window.draw(mainbackground2);
 	window.draw(middleBlock);
@@ -1504,19 +1503,19 @@ void level2(RenderWindow& window) {
 			draw_fruits(scale1_fruit, straberry, scale2_fruit, y, xx);
 			draw_fruits(scale1_fruit, strabery1, scale2_fruit, y, 220);
 			bar.setTextureRect(IntRect(150, 0, 150, 150));
-			
+
 
 		}
 		chooseoneflav();
-		playermove1(player1, window, 0.65, 630, 120,120,620);
+		playermove1(player1, window, 0.65, 630, 120, 120, 620);
 		player1.player.move(player1.velocity);
 		window.draw(player1.player);
 		window.draw(player1.text);
 		winmenue(window, 60, pass_level2);
 		innerblockcolision(player1);
 		middelblockcolision(player1);
-		fruitcolision(banana1, player1,15);
-		fruitcolision(banana2, player1,15);
+		fruitcolision(banana1, player1, 15);
+		fruitcolision(banana2, player1, 15);
 		fruitcolision(straberry, player1, 15);
 		fruitcolision(strabery1, player1, 15);
 		enemycolision(window, player1, cowenemy1);
@@ -1524,12 +1523,12 @@ void level2(RenderWindow& window) {
 
 	}
 	else {
-		if (player1.score == 0&&player2.score==0) {
+		if (player1.score == 0 && player2.score == 0) {
 			draw_fruits(scale1_fruit, banana1, scale2_fruit, y, xx);
 			draw_fruits(scale1_fruit, banana2, scale2_fruit, y, 220);
 			bar.setTextureRect(IntRect(0, 0, 150, 150));
 		}
-		if (player1.score +player2.score ==30) {
+		if (player1.score + player2.score == 30) {
 
 			draw_fruits(scale1_fruit, straberry, scale2_fruit, y, xx);
 			draw_fruits(scale1_fruit, strabery1, scale2_fruit, y, 220);
@@ -1548,15 +1547,15 @@ void level2(RenderWindow& window) {
 		window.draw(player2.text);
 		winmenue(window, 60, pass_level2);
 		innerblockcolision(player1);
-		fruitcolision(banana1, player1,15);
-		fruitcolision(banana2, player1,15);
+		fruitcolision(banana1, player1, 15);
+		fruitcolision(banana2, player1, 15);
 		fruitcolision(straberry, player1, 15);
 		fruitcolision(strabery1, player1, 15);
 		innerblockcolision(player2);
 		middelblockcolision(player1);
 		middelblockcolision(player2);
-		fruitcolision(banana1, player2,15);
-		fruitcolision(banana2, player2,15);
+		fruitcolision(banana1, player2, 15);
+		fruitcolision(banana2, player2, 15);
 		fruitcolision(straberry, player2, 15);
 		fruitcolision(strabery1, player2, 15);
 		enemycolision(window, player1, cowenemy1);
@@ -1569,7 +1568,7 @@ void level2(RenderWindow& window) {
 		fruit1.loadFromFile("photos/Strawberry11.png");
 		for (int i = 0; i < 15; i++)
 		{
-			
+
 			straberry[i].fruit.setTexture(fruit1);
 			strabery1[i].fruit.setTexture(fruit1);
 		}
@@ -1593,19 +1592,19 @@ void level2(RenderWindow& window) {
 	window.draw(cowenemy1.enemy);
 	window.draw(cowenemy2.enemy);
 	window.draw(bar);
-	
-	if (!player1.win && player1.touch > 0&&cnt==4) {
+
+	if (!player1.win && player1.touch > 0 && cnt == 4) {
 
 		window.draw(winnermenu);
 	}
-	if (!player1.win&&!player2.win && player1.touch > 0 && player2.touch > 0) {
+	if (!player1.win && !player2.win && player1.touch > 0 && player2.touch > 0) {
 
 		window.draw(winnermenu);
 	}
-	
-	
-	
-	
+
+
+
+
 }
 void level3(RenderWindow& window) {
 
@@ -1626,14 +1625,14 @@ void level3(RenderWindow& window) {
 		block3[i].setTexture(txblock3);
 		block2[i].setTexture(txblock2);
 	}
-	for (int i = 0; i < 4; i++) {
 
-		tree[i].setTexture(txtree);
-	}
 
 	//drawblocklevel3(3.3, 500, 2, window);
 	drawboarder(3, 13, block3, 750, window);
 
+	for (int i = 0; i < 4; i++) {
+		window.draw(tree[i]);
+	}
 
 
 	if (poslevel2) {
@@ -1654,13 +1653,28 @@ void level3(RenderWindow& window) {
 	if (cnt == 4) {
 		if (player1.score == 0) {
 			bar.setTextureRect(IntRect(0, 0, 150, 150));
-			//drawFruits(coco, 20, 595, 84, 35, 650, 50, 35);
-				drawFruits(coco, 16, 433, 78, 66, 488, 213, 232);
+			drawFruits(coco, 20, 595, 84, 35, 650, 50, 35);
+
 			drawblocklevel3(3.3, window);
 		}
 		if (player1.score == 20) {
 			drawFruits(dragon, 20, 595, 84, 35, 650, 50, 35);
 			bar.setTextureRect(IntRect(150, 0, 150, 150));
+		}
+		fruit1.loadFromFile("photos/coconut.png");
+		for (int i = 0; i < 16; i++) {
+			coco2[i].fruit.setTexture(fruit1);
+		}
+		if (player1.score == 4) {
+			for (int i = 0; i < 20; i++) {
+				coco[i].fruit.setScale(0, 0);
+			}
+			
+			drawFruits(coco2, 16, 433, 78, 70, 449, 200, 225);
+			for (int i = 0; i < 20; i++)
+			{
+				window.draw(coco2[i].fruit);
+			}
 		}
 
 		chooseoneflav();
@@ -1705,6 +1719,9 @@ void level3(RenderWindow& window) {
 		fruitcolision(dragon, player1, 20);
 		fruitcolision(coco, player2, 20);
 		fruitcolision(dragon, player2, 20);
+		blockbreak(window, player1);
+		blockbreak(window, player2);
+
 
 	}
 	if (player1.score >= 20 || (player1.score + player2.score) >= 20) {
@@ -1719,6 +1736,7 @@ void level3(RenderWindow& window) {
 			window.draw(dragon[i].fruit);
 		}
 	}
+
 	fruit1.loadFromFile("photos/coconut.png");
 	for (int i = 0; i < 20; i++)
 	{
@@ -1732,11 +1750,9 @@ void level3(RenderWindow& window) {
 		//if(!breakblocks[i])
 		window.draw(block2[i]);
 	}
-	
 
-	for (int i = 0; i < 4; i++) {
-		window.draw(tree[i]);
-	}
+
+
 
 	window.draw(bar);
 	if (!player1.win && player1.touch > 0 && cnt == 4) {
@@ -1751,20 +1767,20 @@ void level3(RenderWindow& window) {
 
 
 }
-void dansetthing(Sprite& s, Texture& tx, int posx, int posy,int i) {
-	
-		s.setTexture(tx);
-		s.setPosition(Vector2f(i * posx, posy));
-	
+void dansetthing(Sprite& s, Texture& tx, int posx, int posy, int i) {
+
+	s.setTexture(tx);
+	s.setPosition(Vector2f(i * posx, posy));
+
 }
-void dantext(Text &te,Font& font, int charn, int posx, int posy) {
+void dantext(Text& te, Font& font, int charn, int posx, int posy) {
 	te.setFont(font);
 	te.setFillColor(Color{ 95, 99, 104 });
 	te.setPosition(posx, posy);
 	te.setCharacterSize(charn);
 }
 void danusorgame(RenderWindow& window) {
-	
+
 	window.setFramerateLimit(60);
 	Texture Dino;
 	Sprite dino;
@@ -1880,7 +1896,7 @@ void danusorgame(RenderWindow& window) {
 	//for birds
 	struct Enemy {
 		Sprite shape;
-		int speed=0;
+		int speed = 0;
 		float animation = 0;
 		bool moving = true;
 	};
@@ -1893,13 +1909,13 @@ void danusorgame(RenderWindow& window) {
 		enemy[i].speed = rand() % (8 - 4 + 1) + 4;     //15 to 8
 		enemy[i].shape.setScale(-0.7, 0.7);
 		int y = rand() % (250 - 200 + 1) + 300;   //200 to 100
-		
-
-			enemy[i].shape.setPosition(10, y);
 
 
-			enemy[i].shape.setTextureRect(IntRect(90, 0, -90, 80));
-		
+		enemy[i].shape.setPosition(10, y);
+
+
+		enemy[i].shape.setTextureRect(IntRect(90, 0, -90, 80));
+
 
 	}
 
@@ -1970,18 +1986,18 @@ void danusorgame(RenderWindow& window) {
 						dino.setTextureRect(IntRect(0, 0, 100, 106));
 
 					}
-					
+
 
 				}
-				
-				
+
+
 			}
-			
-			
+
+
 
 		}
-		
-		
+
+
 		//jump logic
 		if (game)
 		{
@@ -2096,16 +2112,16 @@ void danusorgame(RenderWindow& window) {
 			{
 				if (enemy[i].moving)
 				{
-					
-						enemy[i].shape.move(-enemy[i].speed, 0);
-						if (enemy[i].shape.getPosition().x < 0)
-						{
-							int y = rand() % (250 - 200 + 1) + 270;
-							enemy[i].shape.setPosition(730, y);
-							enemy[i].speed = rand() % (15 - 8 + 1) + 8;
-						}
 
-					
+					enemy[i].shape.move(-enemy[i].speed, 0);
+					if (enemy[i].shape.getPosition().x < 0)
+					{
+						int y = rand() % (250 - 200 + 1) + 270;
+						enemy[i].shape.setPosition(730, y);
+						enemy[i].speed = rand() % (15 - 8 + 1) + 8;
+					}
+
+
 				}
 			}
 		}
@@ -2172,7 +2188,7 @@ void danusorgame(RenderWindow& window) {
 		{
 			window.draw(scoretxt);
 			if (score >= 50) {
-				appear  = true;
+				appear = true;
 				for (int i = 0; i < 1; i++) {
 					//enemy[i].speed = rand() % (8 - 4 + 1) + 4;
 					window.draw(enemy[i].shape);
@@ -2545,12 +2561,12 @@ int main()
 	Texture helpmenu_tx;
 	Sprite helpmenue;
 	helpmenu_tx.loadFromFile("photos/help-menu.png");
-	setthings(helpmenue, helpmenu_tx, 150,100);
+	setthings(helpmenue, helpmenu_tx, 150, 100);
 	///////////////players///////////////////////////
-	player1.player.setTexture(player1 .txplayer);
-	player2.player.setTexture(player2 .txplayer);
-	setplayer(player1,0.75);
-	setplayer(player2,0.65);
+	player1.player.setTexture(player1.txplayer);
+	player2.player.setTexture(player2.txplayer);
+	setplayer(player1, 0.75);
+	setplayer(player2, 0.65);
 	////////////////////ice tower//////////////////////////
 	txicecastle.loadFromFile("photos/icecastle.png");
 	setthings(icecastle, txicecastle, 250, 200);
@@ -2569,12 +2585,12 @@ int main()
 	gameover.soundbuffer.loadFromFile("Audios/game over.mp3");
 	gameover.sound.setBuffer(gameover.soundbuffer);
 	//bar texture
-	
-	
+
+
 	bar.setTexture(barm);
 	bar.setPosition(150, 525);
 	bar.setScale(3, 3);
-	
+
 	if (!music.openFromFile("Audios/music.mpeg")) {
 
 		//return EXIT_FAILURE;
@@ -2582,10 +2598,10 @@ int main()
 		danusorgame(window);
 
 	}
-	
+
 	while (window.isOpen())
 	{
-		
+
 
 		gameclock.restart();
 		speed = 100.0f;
@@ -2602,7 +2618,7 @@ int main()
 				window.close();
 			}
 			if (evnt.type == Event::KeyPressed) {
-				if (evnt.key.code == Keyboard::Up&&cnt==1) {
+				if (evnt.key.code == Keyboard::Up && cnt == 1) {
 					play.MoveUp();
 				}
 				if (evnt.key.code == Keyboard::Down && cnt == 1) {
@@ -2623,86 +2639,86 @@ int main()
 					}
 				}
 			}
-				
-
-				Vector2i mosPos = Mouse::getPosition(window);
-				if (Mouse::isButtonPressed(Mouse::Left)) {
 
 
-					if (cnt==0&&mosPos.x > 260 && mosPos.x < 500 && mosPos.y>550 && mosPos.y < 650) {
-
-						cnt = 1;
-
-					}
-					if (mosPos.x > 60 && mosPos.x < 80 && mosPos.y > 90 && mosPos.y < 120) {
-						music.play();
-						music.setLoop(true);
-					}
-
-					if (mosPos.x > 20 && mosPos.x < 40 && mosPos.y > 90 && mosPos.y < 120) {
-						music.stop();
-						music.setLoop(false);
-					}
-					if (pagenum==2&&mosPos.x > 150 && mosPos.x < 270 && mosPos.y>620 &&
-						mosPos.y < 670) {
-						cnt = 1;
-						pagenum = 100;
-					}
-					
-					//for twoplayer
-					if (cnt==3&&mosPos.x > 450 && mosPos.x < 500 && mosPos.y>200 && mosPos.y < 450)
-					{
-						cnt = 5;
-						
-					}
-					//for one player
-					else if (cnt==3&&mosPos.x > 200 && mosPos.x < 300 && mosPos.y>200 && mosPos.y < 450)
-					{
-						cnt = 4;
+			Vector2i mosPos = Mouse::getPosition(window);
+			if (Mouse::isButtonPressed(Mouse::Left)) {
 
 
-					}
-					
-					//back in help menue
-					if (pagenum == 3 && mosPos.x >330 && mosPos.x <430 && mosPos.y>450 && mosPos.y <500 ) {
-						cnt = 1;
-						pagenum = 100;
-					}
-					// choose players
-					if (cnt==3&&mosPos.x > 300 && mosPos.x < 430 && mosPos.y>500 && mosPos.y < 550)
-					{
-						cnt = 2;
-					}
-					//goodluck menu
-					if ((!player1.win||(!player1.win&&!player2.win) && mosPos.x > 330 && mosPos.x <400 && mosPos.y>380 && mosPos.y < 420) ){
-						player1.win = true;
-						player2.win=true;
-						cnt = 1;
-						poslevel1 = true;
-						poslevel2 = true;
-						oneflav = "null";
-						twoflav[0] = "null";
-						twoflav[1] = "null";
-						
-					}
-					if (mosPos.x > 680 && mosPos.x < 750 &&  mosPos.y < 55) {
-						cnt = 1;
-						poslevel1 = true;
-						poslevel2 = true;
-						pagenum = 100;
-						oneflav = "null";
-						twoflav[0] = "null";
-						twoflav[1] = "null";
-						player1.win = true;
-						player2.win = true;
-						
-					}
-					//cout << mosPos.x<<"..."<< mosPos.y<<endl;
+				if (cnt == 0 && mosPos.x > 260 && mosPos.x < 500 && mosPos.y>550 && mosPos.y < 650) {
+
+					cnt = 1;
 
 				}
-				
-				
-				
+				if (mosPos.x > 60 && mosPos.x < 80 && mosPos.y > 90 && mosPos.y < 120) {
+					music.play();
+					music.setLoop(true);
+				}
+
+				if (mosPos.x > 20 && mosPos.x < 40 && mosPos.y > 90 && mosPos.y < 120) {
+					music.stop();
+					music.setLoop(false);
+				}
+				if (pagenum == 2 && mosPos.x > 150 && mosPos.x < 270 && mosPos.y>620 &&
+					mosPos.y < 670) {
+					cnt = 1;
+					pagenum = 100;
+				}
+
+				//for twoplayer
+				if (cnt == 3 && mosPos.x > 450 && mosPos.x < 500 && mosPos.y>200 && mosPos.y < 450)
+				{
+					cnt = 5;
+
+				}
+				//for one player
+				else if (cnt == 3 && mosPos.x > 200 && mosPos.x < 300 && mosPos.y>200 && mosPos.y < 450)
+				{
+					cnt = 4;
+
+
+				}
+
+				//back in help menue
+				if (pagenum == 3 && mosPos.x > 330 && mosPos.x < 430 && mosPos.y>450 && mosPos.y < 500) {
+					cnt = 1;
+					pagenum = 100;
+				}
+				// choose players
+				if (cnt == 3 && mosPos.x > 300 && mosPos.x < 430 && mosPos.y>500 && mosPos.y < 550)
+				{
+					cnt = 2;
+				}
+				//goodluck menu
+				if ((!player1.win || (!player1.win && !player2.win) && mosPos.x > 330 && mosPos.x < 400 && mosPos.y>380 && mosPos.y < 420)) {
+					player1.win = true;
+					player2.win = true;
+					cnt = 1;
+					poslevel1 = true;
+					poslevel2 = true;
+					oneflav = "null";
+					twoflav[0] = "null";
+					twoflav[1] = "null";
+
+				}
+				if (mosPos.x > 680 && mosPos.x < 750 && mosPos.y < 55) {
+					cnt = 1;
+					poslevel1 = true;
+					poslevel2 = true;
+					pagenum = 100;
+					oneflav = "null";
+					twoflav[0] = "null";
+					twoflav[1] = "null";
+					player1.win = true;
+					player2.win = true;
+
+				}
+				cout << mosPos.x << "..." << mosPos.y << endl;
+
+			}
+
+
+
 		}
 
 		window.clear();
@@ -2717,11 +2733,11 @@ int main()
 			window.draw(menu2);
 			play.draw(window);
 		}
-		
+
 		if (pagenum == 1) {
 			cnt = 2;
 			pagenum = 100;
-			
+
 
 		}
 		if (pagenum == 2) {
@@ -2738,19 +2754,19 @@ int main()
 		if (pagenum == -1) {
 			window.close();
 		}
-		
+
 		if (cnt == 2) {
 			window.draw(setbtn);
-		  level= llmenu(window);
-		  if(level!=-1)
-		      cnt = 3;
+			level = llmenu(window);
+			if (level != -1)
+				cnt = 3;
 
 		}
 
-	    if (cnt == 3) {
+		if (cnt == 3) {
 			window.draw(mainbackground);
-			
-			 /////////////choose  menu for two players or one player///////////////////////////
+
+			/////////////choose  menu for two players or one player///////////////////////////
 			RectangleShape chplayer(Vector2f(520, 520));
 			Texture txchplayer;
 			chplayer.setPosition(100, 80);
@@ -2758,58 +2774,58 @@ int main()
 			chplayer.setTexture(&txchplayer);
 
 			window.draw(chplayer);
-			
+
 		}
-		 if (cnt == 4) {
+		if (cnt == 4) {
 			window.draw(mainbackground);
 			chooseflav_one(window);
 
-			
-			
-			
+
+
+
 		}
 		if (cnt == 5) {
 			window.draw(mainbackground);
 			chooseflav_two(window);
 		}
-		if (cnt==4&&oneflav!="null")
-			{
+		if (cnt == 4 && oneflav != "null")
+		{
 			if (level == 11) {
-				level3(window);
-				
+				level1(window);
+
 			}
-			else if(level == 22){
+			else if (level == 22) {
 				level2(window);
-				
+
 			}
 			else if (level == 33) {
 				level3(window);
 
 			}
-			
+
 		}
-		else if (cnt == 5&& twoflav[0]!="null"&&twoflav[1]!="null") {
+		else if (cnt == 5 && twoflav[0] != "null" && twoflav[1] != "null") {
 			if (level == 11) {
 				level1(window);
 			}
-		    else if (level == 22) {
-			level2(window);
+			else if (level == 22) {
+				level2(window);
 
-		    }
-		    else if (level == 33) {
-			level3(window);
+			}
+			else if (level == 33) {
+				level3(window);
 
-		    }
+			}
 
-			
+
 		}
-		
+
 		window.draw(setbtn);
 		window.display();
 
 		deltatime = gameclock.getElapsedTime().asSeconds();
 
-		
+
 
 
 
@@ -2819,9 +2835,9 @@ int main()
 
 
 
-			
-			
-			
+
+
+
 
 
 
